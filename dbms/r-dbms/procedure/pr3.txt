@@ -1,0 +1,164 @@
+create table Sal
+(
+s_num int primary key,
+s_name char(20),
+s_city char(20),
+s_com int
+);
+
+create procedure sale(in num int, in name char(20), in city char(20), in com int)
+begin 
+insert into Sal(s_num,s_name,s_city,s_com) values(num,name,city,com);
+ End;
+
+call  sale(101,'ankush','London',12)#
+call  sale(102,'Niraj','surat',13)#
+call  sale(103,'priya','amarli',11)#
+call  sale(104,'Rajesh','Baroda',15)#
+call  sale(105,'jaymin','New Delhi',10)#
+
+=================
+create table Cust
+(
+c_num int primary key,
+c_name char(20),
+c_city char(20),
+c_rating int,
+s_num int
+);
+ create procedure cus(in num int,in name char(20), in city char(20), in rating int, in s_num int)
+begin 
+insert into Cust(c_num,c_name,c_city,c_rating,s_num) values(num,name,city,rating,s_num);
+End; 
+
+call cus(200,'Hardik','London',100,1001)#
+call cus(201,'Gita','Rome',200,1003)#
+call cus(203,'Laxit','Surat',200,1002)#
+call cus(204,'Govind','Bombay',300,1002)#
+call cus(205,'Chandu','London',100,1001)#
+===============================
+
+create table Ord
+(
+o_num int primary key,
+o_amount float,
+o_date date,
+c_num bigint,
+s_num bigint
+);
+
+create procedure Orde( in num int, in amount float, in date date, in c_num bigint, in s_num bigint)
+begin
+insert into Ord values (num,amount,date,c_num,s_num);
+end; 
+
+call Orde(300,18.69,'1999-03-11',2007,1007)#
+call Orde(301,767.19,'1999-03-11',2001,1001)#
+call Orde(302,1900.10,'1999-03-11',2007,1004)#
+call Orde(303,5160.45,'1999-03-11',2003,1002)#
+call Orde(304,1098.25,'1999-04-11',2008,1007)#
+
+========================================
+
+
+create procedure p()
+begin
+	declare n1,n2,n3 int;
+	set n1=10, n2=20,n3=30;
+	if n1>n2 
+	then
+	if n1>n3
+	then
+	     select "n1 is largest";
+	else 
+		select "n3 is largest";
+	End if;
+	else
+	if n2>n3
+	 then
+		select "n2 is largest";
+	else
+		select "n3 is largest";
+	End if;
+	End if;
+end#
+
+========================================
+WRITE A PROCEDURE THAT WILL TAKE NUMBER AS PARAMETER AND CHECK WHETHER THE NUMBER IS ODD OR EVEN.
+
+create procedure opn(in n int)
+BEGIN
+	IF n%2<>0 THEN
+	select 'Number is even';
+	ELSE 
+	select 'Number is ODD';
+	END IF;
+END #
+   ======================================
+
+
+create procedure p11() select c_name,c_num from Cust where c_num=201;
+======================================================================
+create procedure pin1()
+update Cust set c_rating=c_rating+150;
+select c_name,c_rating from Cust where c_num=203;
+#
+=========================================
+create procedure P_ORDER()
+   Select o_num , MAX(o_amount)from Ord
+
+call P_ORDER 
+=========================
+create  procedure pi1(in city char(20))
+begin
+declare Total_rat int;
+SELECT SUM(c_rating) into Total_rat from cust where c_city=city;
+	if Total_rat<1000 then
+		select "Poor";
+
+elseif Total_rat<=2000 then
+	select "good";
+
+elseif Total_rat<=3000 then 
+	select "excellent";
+else
+	select "outstanding";
+end if;
+end
+call  p_grade('surat');#
+
+=============================================
+
+
+create  procedure Pi2()
+begin
+	declare rat int;
+select  c_rating into rat from  Cust where  c_num=2001;
+	if rat=100 then
+		select 'poor';
+	elseif rat=200 then
+		select 'good';
+	elseif rat=300 then
+		select 'excellent';
+	else
+		select 'invalid rating';
+	end if;
+	end#
+
+=============================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

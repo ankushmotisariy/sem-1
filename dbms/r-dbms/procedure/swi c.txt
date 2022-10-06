@@ -1,0 +1,108 @@
+create database bmiit_202106100110145;
+
+use bmiit_202106100110145;
+
+create table Customer
+(
+	Cust_id int,
+	Cust_Name varchar(50),
+	Unit_Consumed int,
+	Total_Bill_Amt int 
+);
+
+update Customer set Total_Bill_Amt = 0 ,Unit_Consumed = 0 where Cust_id = 1
+
+
+alter table Customer add primary key(Cust_id);
+
+alter table Customer modify Unit_Consumed int default 0;
+
+alter table Customer modify   Total_Bill_Amt int default 0;
+
+
+
+insert into Customer (Cust_id ,Cust_Name) values (1 , 'Mr. Akash Bhadra');
+
+create procedure sp_add_cust(in cid int , in name varchar(50))
+begin
+	insert into Customer (Cust_id ,Cust_Name) values (cid , name);
+
+end@
+
+------------------------------------------------------
+
+
+
+
+
+CREATE TABLE BillData
+(
+	bid int primary key,
+	cust_id int,
+	TotalBillAmt int,
+	DateofPayment date,
+	foreign key(cust_id) references Customer(Cust_id)
+);
+
+alter table BillData modify bid int autoincrement; 
+
+
+------------------------------------------------------
+
+
+		Without if
+
+
+delimiter @
+
+drop procedure  sp_calculate_bill @
+
+create procedure bil(in unit int , in cid int)
+begin
+	declare charge int;
+		
+	case
+		when unit <= 100 then
+			set charge = 200;
+		when unit <= 200 then
+			set charge = 200+(unit*3);
+		when unit <=300 then
+			set charge = 200 +(unit*4);
+		when unit <= 400 then
+			set charge = 200 + (unit*5);
+when unit <= 500 then
+			set charge = 200 + (unit*6);
+when unit <= 600 then
+			set charge = 200 + (unit*7);
+when unit <= 100 then
+			set charge = 200 + (unit*8);
+when unit <= 800 then
+			set charge = 200 + (unit*9);
+when unit <= 10000 then
+			set charge = 200 + (unit*5);
+
+	end case;
+
+	select charge as Bill_Amt;
+
+
+	insert into BillData (cust_id , TotalBillAmt , DateOfpayment) values(cid , charge , date(now()));
+
+
+	update Customer 
+	set Total_Bill_Amt = Total_Bill_Amt+charge ,  Unit_Consumed = Unit_Consumed +  unit 
+	where  Cust_id = cid;
+
+
+end@
+
+
+------------------------------------------------------
+
+
+		With if
+
+
+
+
+

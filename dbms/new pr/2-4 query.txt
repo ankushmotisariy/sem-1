@@ -1,0 +1,250 @@
+1) Rcord insert
+
+
+mysql> select * from personal_info;
++------+---------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+| p_id | f_name  | m_name      | l_name    | user_name  | password | gender | date_of_birth | contact_no | city_id |
++------+---------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+|  101 | Om      | Vipulbhai   | Nayani    | nayani1808 | om1010   | male   | 2003-08-18    | 9313124842 |       1 |
+|  102 | suraj   | Sureshbhai  | smith     | smith0000  | ss1111   | male   | 1993-05-25    | 9099259966 |       2 |
+|  103 | Manav   | Mansukhbhai | Mandaviya | MManav     | mmm2020  | male   | 2004-01-24    | 7874291110 |       3 |
+|  104 | Manish  | Manojbhai   | Patoliya  | manish*2   | 005522   | male   | 1993-07-18    | 9016424040 |       4 |
+|  105 | Abhay   | Bhaveshbhai | Vaghasiya | AB3124     | abdon    | male   | 2004-01-03    | 9825406256 |       5 |
+|  111 | Harsh   | Yagneshbhai | Sutariya  | HY1807     | Harsh20  | male   | 2004-07-18    | 9909093225 |       6 |
+|  112 | Jeel    | Nareshbhai  | Goyani    | jeel2808   | jn0000   | male   | 2000-08-25    |  990963408 |       7 |
+|  113 | Prience | Bipinbhai   | Sutariya  | pillu2020  | pilludon | male   | 1989-04-12    | 9510582409 |       8 |
+|  114 | Jemish  | Kamleshbhai | Savani    | savani911  | 808045   | male   | 2002-09-11    | 9825156991 |       9 |
+|  115 | Harshal | Piyushbhai  | Sonani    | H4578      | hp0202   | male   | 2002-02-15    | 9852394000 |      10 |
++------+---------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+10 rows in set (0.00 sec)
+
+
+2)record
+
+mysql> select * from city;
++---------+-----------+------+
+| city_id | city_name | p_id |
++---------+-----------+------+
+|       1 | surat     |  101 |
+|       2 | mumbai    |  102 |
+|       3 | vapi      |  103 |
+|       4 | delhi     |  104 |
+|       5 | surat     |  105 |
+|       6 | bharuch   |  111 |
+|       7 | valsad    |  112 |
+|       8 | navsari   |  113 |
+|       9 | anand     |  114 |
+|      10 | baroda    |  115 |
++---------+-----------+------+
+10 rows in set (0.01 sec)
+
+3)record
+
+
+mysql> select * from community;
++------+------------+--------+------------+------+
+| c_id | c_name     | c_disc | date       | p_id |
++------+------------+--------+------------+------+
+|    1 | MCA        |        | 2000-08-01 |  101 |
+|    2 | BCA        |        | 2005-01-01 |  102 |
+|    3 | B.COM      |        | 2008-01-03 |  104 |
+|    4 | M.SC(IT)   |        | 2012-08-15 |  105 |
+|    5 | BIOTECH    |        | 2015-08-15 |  101 |
+|    6 | BBA        |        | 2014-05-15 |  104 |
+|    7 | B.TECH     |        | 2016-08-01 |  111 |
+|    8 | ENGNEERING |        | 0210-05-01 |  115 |
+|    9 | B.ED       |        | 2015-08-01 |  113 |
+|   10 | M.COM      |        | 2010-01-01 |  112 |
++------+------------+--------+------------+------+
+10 rows in set (0.00 sec)
+
+4)record
+mysql> select * from community_member;
++-------+------+------+
+| cm_id | c_id | p_id |
++-------+------+------+
+|  1001 |    1 |  101 |
+|  1002 |    2 |  102 |
+|  1003 |    3 |  103 |
+|  1004 |    4 |  104 |
+|  1005 |    5 |  105 |
+|  1006 |    6 |  111 |
+|  1007 |    7 |  112 |
+|  1008 |    8 |  113 |
+|  1009 |    9 |  114 |
+|  1010 |   10 |  115 |
++-------+------+------+
+10 rows in set (0.00 sec)
+
+1)
+mysql> select * from city where city_name='surat';
++---------+-----------+------+
+| city_id | city_name | p_id |
++---------+-----------+------+
+|       1 | surat     |  101 |
+|       5 | surat     |  105 |
++---------+-----------+------+
+2 rows in set (0.00 sec)
+
+2)
+
+mysql> select personal_info.p_id,f_name,m_name,l_name,count(c_id) as total_community from community_member join personal_info on community_member.p_id=personal_info.p_id group by personal_info.p_id having count(community_member.p_id)>1;
+Empty set (0.59 sec)
+
+
+
+3)
+mysql>  select * from personal_info where l_name like 'Sm%' and l_name like '%th' and l_name like '_____';
++------+--------+------------+--------+-----------+----------+--------+---------------+------------+---------+
+| p_id | f_name | m_name     | l_name | user_name | password | gender | date_of_birth | contact_no | city_id |
++------+--------+------------+--------+-----------+----------+--------+---------------+------------+---------+
+|  102 | suraj  | Sureshbhai | smith  | smith0000 | ss1111   | male   | 1993-05-25    | 9099259966 |       2 |
++------+--------+------------+--------+-----------+----------+--------+---------------+------------+---------+
+1 row in set (0.00 sec)
+
+4)
+mysql> select f_name,m_name,date_of_birth from personal_info where f_name like 'm%';
++--------+-------------+---------------+
+| f_name | m_name      | date_of_birth |
++--------+-------------+---------------+
+| Manav  | Mansukhbhai | 2004-01-24    |
+| Manish | Manojbhai   | 1993-07-18    |
++--------+-------------+---------------+
+2 rows in set (0.00 sec)
+
+5)
+mysql> select f_name from personal_info where f_name like '%m';
++--------+
+| f_name |
++--------+
+| Om     |
++--------+
+1 row in set (0.00 sec)
+
+6)
+mysql> select user_name,password from personal_info where f_name not like 'm%';
++------------+----------+
+| user_name  | password |
++------------+----------+
+| nayani1808 | om1010   |
+| smith0000  | ss1111   |
+| AB3124     | abdon    |
+| HY1807     | Harsh20  |
+| jeel2808   | jn0000   |
+| pillu2020  | pilludon |
+| savani911  | 808045   |
+| H4578      | hp0202   |
++------------+----------+
+8 rows in set (0.00 sec)
+
+7)
+mysql> select * from personal_info where f_name like'%s%';
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+| p_id | f_name  | m_name      | l_name   | user_name | password | gender | date_of_birth | contact_no | city_id |
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+|  102 | suraj   | Sureshbhai  | smith    | smith0000 | ss1111   | male   | 1993-05-25    | 9099259966 |       2 |
+|  104 | Manish  | Manojbhai   | Patoliya | manish*2  | 005522   | male   | 1993-07-18    | 9016424040 |       4 |
+|  111 | Harsh   | Yagneshbhai | Sutariya | HY1807    | Harsh20  | male   | 2004-07-18    | 9909093225 |       6 |
+|  114 | Jemish  | Kamleshbhai | Savani   | savani911 | 808045   | male   | 2002-09-11    | 9825156991 |       9 |
+|  115 | Harshal | Piyushbhai  | Sonani   | H4578     | hp0202   | male   | 2002-02-15    | 9852394000 |      10 |
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+5 rows in set (0.00 sec)
+
+
+8)
+mysql> select * from personal_info where p_id like '___' and p_id like '10%';
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+| p_id | f_name | m_name      | l_name    | user_name  | password | gender | date_of_birth | contact_no | city_id |
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+|  101 | Om     | Vipulbhai   | Nayani    | nayani1808 | om1010   | male   | 2003-08-18    | 9313124842 |       1 |
+|  102 | suraj  | Sureshbhai  | smith     | smith0000  | ss1111   | male   | 1993-05-25    | 9099259966 |       2 |
+|  103 | Manav  | Mansukhbhai | Mandaviya | MManav     | mmm2020  | male   | 2004-01-24    | 7874291110 |       3 |
+|  104 | Manish | Manojbhai   | Patoliya  | manish*2   | 005522   | male   | 1993-07-18    | 9016424040 |       4 |
+|  105 | Abhay  | Bhaveshbhai | Vaghasiya | AB3124     | abdon    | male   | 2004-01-03    | 9825406256 |       5 |
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+5 rows in set (0.56 sec)
+
+
+9)
+
+mysql> select * from personal_info where p_id in(101,102,103,104,105);
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+| p_id | f_name | m_name      | l_name    | user_name  | password | gender | date_of_birth | contact_no | city_id |
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+|  101 | Om     | Vipulbhai   | Nayani    | nayani1808 | om1010   | male   | 2003-08-18    | 9313124842 |       1 |
+|  102 | suraj  | Sureshbhai  | smith     | smith0000  | ss1111   | male   | 1993-05-25    | 9099259966 |       2 |
+|  103 | Manav  | Mansukhbhai | Mandaviya | MManav     | mmm2020  | male   | 2004-01-24    | 7874291110 |       3 |
+|  104 | Manish | Manojbhai   | Patoliya  | manish*2   | 005522   | male   | 1993-07-18    | 9016424040 |       4 |
+|  105 | Abhay  | Bhaveshbhai | Vaghasiya | AB3124     | abdon    | male   | 2004-01-03    | 9825406256 |       5 |
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+5 rows in set (0.01 sec)
+
+10)
+mysql> select * from personal_info where p_id not in(101,102,103,104,105);
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+| p_id | f_name  | m_name      | l_name   | user_name | password | gender | date_of_birth | contact_no | city_id |
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+|  111 | Harsh   | Yagneshbhai | Sutariya | HY1807    | Harsh20  | male   | 2004-07-18    | 9909093225 |       6 |
+|  112 | Jeel    | Nareshbhai  | Goyani   | jeel2808  | jn0000   | male   | 2000-08-25    |  990963408 |       7 |
+|  113 | Prience | Bipinbhai   | Sutariya | pillu2020 | pilludon | male   | 1989-04-12    | 9510582409 |       8 |
+|  114 | Jemish  | Kamleshbhai | Savani   | savani911 | 808045   | male   | 2002-09-11    | 9825156991 |       9 |
+|  115 | Harshal | Piyushbhai  | Sonani   | H4578     | hp0202   | male   | 2002-02-15    | 9852394000 |      10 |
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+5 rows in set (0.04 sec)
+
+
+11)
+mysql> select * from personal_info where p_id between 101 and 110;
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+| p_id | f_name | m_name      | l_name    | user_name  | password | gender | date_of_birth | contact_no | city_id |
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+|  101 | Om     | Vipulbhai   | Nayani    | nayani1808 | om1010   | male   | 2003-08-18    | 9313124842 |       1 |
+|  102 | suraj  | Sureshbhai  | smith     | smith0000  | ss1111   | male   | 1993-05-25    | 9099259966 |       2 |
+|  103 | Manav  | Mansukhbhai | Mandaviya | MManav     | mmm2020  | male   | 2004-01-24    | 7874291110 |       3 |
+|  104 | Manish | Manojbhai   | Patoliya  | manish*2   | 005522   | male   | 1993-07-18    | 9016424040 |       4 |
+|  105 | Abhay  | Bhaveshbhai | Vaghasiya | AB3124     | abdon    | male   | 2004-01-03    | 9825406256 |       5 |
++------+--------+-------------+-----------+------------+----------+--------+---------------+------------+---------+
+5 rows in set (0.03 sec)
+
+12)
+mysql> select * from personal_info where date_of_birth between '1993-01-01' and '1993-12-31';
++------+--------+------------+----------+-----------+----------+--------+---------------+------------+---------+
+| p_id | f_name | m_name     | l_name   | user_name | password | gender | date_of_birth | contact_no | city_id |
++------+--------+------------+----------+-----------+----------+--------+---------------+------------+---------+
+|  102 | suraj  | Sureshbhai | smith    | smith0000 | ss1111   | male   | 1993-05-25    | 9099259966 |       2 |
+|  104 | Manish | Manojbhai  | Patoliya | manish*2  | 005522   | male   | 1993-07-18    | 9016424040 |       4 |
++------+--------+------------+----------+-----------+----------+--------+---------------+------------+---------+
+2 rows in set (0.00 sec)
+
+13)
+mysql> select * from personal_info where p_id not between 101 and 110;
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+| p_id | f_name  | m_name      | l_name   | user_name | password | gender | date_of_birth | contact_no | city_id |
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+|  111 | Harsh   | Yagneshbhai | Sutariya | HY1807    | Harsh20  | male   | 2004-07-18    | 9909093225 |       6 |
+|  112 | Jeel    | Nareshbhai  | Goyani   | jeel2808  | jn0000   | male   | 2000-08-25    |  990963408 |       7 |
+|  113 | Prience | Bipinbhai   | Sutariya | pillu2020 | pilludon | male   | 1989-04-12    | 9510582409 |       8 |
+|  114 | Jemish  | Kamleshbhai | Savani   | savani911 | 808045   | male   | 2002-09-11    | 9825156991 |       9 |
+|  115 | Harshal | Piyushbhai  | Sonani   | H4578     | hp0202   | male   | 2002-02-15    | 9852394000 |      10 |
++------+---------+-------------+----------+-----------+----------+--------+---------------+------------+---------+
+5 rows in set (0.00 sec)
+
+14)
+mysql> select f_name,password from personal_info;
++---------+----------+
+| f_name  | password |
++---------+----------+
+| Om      | om1010   |
+| suraj   | ss1111   |
+| Manav   | mmm2020  |
+| Manish  | 005522   |
+| Abhay   | abdon    |
+| Harsh   | Harsh20  |
+| Jeel    | jn0000   |
+| Prience | pilludon |
+| Jemish  | 808045   |
+| Harshal | hp0202   |
++---------+----------+
+10 rows in set (0.00 sec)
+
+

@@ -1,0 +1,583 @@
+1.
+• Write a procedure that will display ‘MY FIRST PROCEDURE’ message.
+• Write a procedure to perform addition, subtraction and 
+ between two numbers. (Without Parameter)
+• Write a procedure to perform addition, subtraction and multiplication between two numbers. (With Parameter)
+
+
+1. create procedure p1()
+begin
+	declare i char(20);
+	set i= "My First Procedure";
+	select i;
+End;
+
+o/p
+call p1; #
++--------------------+
+| i                  |
++--------------------+
+| My First Procedure |
++--------------------+
+
+
+2.
+ADDITION:
+
+create procedure Addition()
+begin
+	declare i,j,A int;
+	set i=10;
+	set j=5;
+ set A=i+j;
+select A;
+end;
+
+o/p
+ call Addition;#
++------+
+| A    |
++------+
+|   15 |
++------+
+
+SUBTRACTION
+ create procedure Subtraction()
+begin 
+	declare a,b,C int;
+	set a=10;
+	set b=5;
+ set C=a-b;
+ select C;
+end;
+
+o/p
+ call Subtraction;
+    -> #
++------+
+| C    |
++------+
+|    5 |
++------+
+
+
+
+Multiplication
+create procedure Multiplication()
+begin
+	declare p,q,R int;
+	set p=25;
+	set q=5;
+set R=p*q;
+select R;
+end;
+
+o/p
+call Multiplication;#
++------+
+| R    |
++------+
+|  125 |
++------+
+
+3. WITH Parameter
+
+ADDITION:
+
+create procedure q1(IN i int, IN j int )
+begin
+	declare ans int;
+	set ans=i+j;
+select ans;
+end;
+
+o/p
+call q1(20,15);#
++------+
+| ans  |
++------+
+|   35 |
++------+
+
+ Subtraction:
+create procedure q2(in a int,in j int)
+begin
+	declare ans int;
+	set ans=a-j;
+select ans;
+end;
+
+o/p
+call q2(25,10);
+    -> #
++------+
+| ans  |
++------+
+|   15 |
++------+
+
+Multiplication:
+create procedure q3(in p int,in q int)
+begin
+	declare ans int;
+	set ans=p*q;
+select ans;
+end;
+
+
+o/p
+
+call q3(89,12);#
++------+
+| ans  |
++------+
+| 1068 |
++------+
+
+==================================================================================================
+________________________________________________________________________________________________________________________________
+
+2.
+CONSIDER STUDENT TABLE
+Column
+Data type
+SID
+INT (PRIMARY KEY)
+SNAME
+VARCHAR
+SCITY
+VARCHAR
+CONTACT
+BIGINT
+GENDER
+VARCHAR													
+MARKS
+INT
+• INSERT ATLEAST FIVE RECORDS WITH THE HELP OF STORED PROCEDURE.
+
+create table student
+(
+s_id int primary key not null,
+s_name varchar(20) not null,
+s_city char(20) not null,
+s_contact bigint not null,
+s_gender varchar(20) not null,
+s_mark int not null
+);
+
+create procedure stu_insert(in id int,in name varchar(20),in city char(20),in contact bigint,in gender varchar(20),in mark int)
+begin
+	insert into student(s_id,s_name,s_city ,s_contact,s_gender,s_mark)
+		values(id,name,city,contact,gender,mark);
+End;
+
+call stu_insert(01,'isha','navsari',6356962811,'female',89);#
+call stu_insert(02,'mansi','surat',9924332016,'female',86);#
+call stu_insert(03,'nishtha','bardoli',9574403440,'female',85);#
+call stu_insert(04,'prachi','valsad',9156962801,'female',83);#
+call stu_insert(05,'bansri','vapi',6356662828,'female',90);#
+
+select * from student;#
++------+---------+---------+------------+----------+--------+
+| s_id | s_name  | s_city  |  s_contact| s_gender | s_mark |
++------+---------+---------+------------+----------+--------+
+|    1 | isha    | navsari | 6356962811 | female   |     89 |
+|    2 | mansi   | surat   | 9924332016 | female   |     86 |
+|    3 | nishtha | bardoli | 9574403440 | female   |     85 |
+|    4 | prachi  | valsad  | 9156962801 | female   |     83 |
+|    5 | bansri  | vapi    | 6356662828 | female   |     90 |
++------+---------+---------+------------+----------+--------+
+
+• Write a procedure that will display student name and contact number whose id is 4.
+	create procedure i1()
+begin
+	select  s_name ,s_contact from student where s_id=4;
+end;
+
+call i1;#
++--------+------------+
+| s_name | s_contact  |
++--------+------------+
+| prachi | 9156962801 |
++--------+------------+
+
+• Write a procedure that will display all the details of students who belong to ‘Surat’ city.
+create procedure i2()select * from student where s_city="surat";
+
+ call i2;#
++------+--------+--------+------------+----------+--------+
+| s_id | s_name | s_city | s_contact  | s_gender | s_mark |
++------+--------+--------+------------+----------+--------+
+|    2 | mansi  | surat  | 9924332016 | female   |     86 |
++------+--------+--------+------------+----------+--------+
+
+• Write a procedure that will count total number of students whose marks is more than 50.
+ create procedure i5()select count(s_mark) from student where s_mark>50;#
+call i5#
++---------------+
+| count(s_mark) |
++---------------+
+|             2 |
++---------------+
+
+• Write a procedure that will display highest and lowest marks of students along with student name.
+create procedure i1()
+begin
+declare i,j int;
+select min(s_mark) into i from student;
+select max(s_mark) into j from student;
+select i,j;
+end#
+
+call i1();#
++------+------+
+| i    | j    |
++------+------+
+|   20 |   90 |
++------+------+
+
+• Write a procedure that will display student name whose marks is between 20 and 25.
+ create procedure i8()select * from student where  s_mark between 20 and 25;
+
+call i8;#
++------+---------+---------+------------+----------+--------+
+| s_id | s_name  | s_city  | s_contact  | s_gender | s_mark    |
++------+---------+---------+------------+----------+--------+
+|    2 | mansi   | surat   | 9924332016 | female   |     25     |
+|    3 | nishtha | bardoli | 9574403440 | female   |     20     |
++------+---------+---------+------------+----------+--------+
+
+
+• Write a procedure that will pass students ID and return back the students name and contact number from student table.
+create procedure sp1(in id int)
+begin
+select s_name, s_contact from student where s_id=id;
+end;
+
+call sp1(01);#
++--------+------------+
+| s_name | s_contact  |
++--------+------------+
+| isha   | 6356962811 |
++--------+------------+
+
+• Write a procedure that will pass city and return back the student details who belongs to particular city.
+create procedure sp_9(in city char(20)) 
+begin 
+select * from student where s_city = city;
+end;
+
+call sp_9('surat');#
++------+--------+--------+------------+----------+--------+
+| s_id | s_name | s_city | s_contact  | s_gender | s_mark |
++------+--------+--------+------------+----------+--------+
+|    2 | mansi  | surat  | 9924332016 | female   |     25 |
++------+--------+--------+------------+----------+--------+
+
+===================================================================================================
+--------------------------------------------------------------------------------------------------------------------------------------------
+3.
+create table Salesman
+(
+s_num bigint primary key not null,
+s_name char(20) not null,
+s_city char(20) not null,
+s_commission bigint not null
+);
+
+create procedure sal_insert(in num bigint, in name char(20), in city char(20), in commission bigint)
+begin 
+insert into Salesman(s_num,s_name,s_city,s_commission) values(num,name,city,commission);
+ End;
+
+call  sal_insert(1001,'Piyush','London',12)#
+call  sal_insert(1002,'Niraj','surat',13)#
+call  sal_insert(1003,'Miti','London',11)#
+call  sal_insert(1004,'Rajesh','Baroda',15)#
+call  sal_insert(1005,'Anad','New Delhi',10)#
+call  sal_insert(1006,'Ram','Patan',10)#
+call  sal_insert(1007,'Laxman','Bombay',9)#
+
+
+create table Customer
+(
+c_num bigint primary key not null,
+c_name char(20) not null,
+c_city char(20) not null,
+c_rating bigint not null,
+s_num bigint not null
+);
+ create procedure cus_insert(in num bigint,in name char(20), in city char(20), in rating bigint, in s_num bigint)
+begin 
+insert into Customer(c_num,c_name,c_city,c_rating,s_num) values(num,name,city,rating,s_num);
+End; 
+
+call cus_insert(2001,'Hardik','London',100,1001)#
+call cus_insert(2002,'Gita','Rome',200,1003)#
+call cus_insert(2003,'Laxit','Surat',200,1002)#
+call cus_insert(2004,'Govind','Bombay',300,1002)#
+call cus_insert(2005,'Chandu','London',100,1001)#
+call cus_insert(2006,'Champak','Surat',300,1007)#
+call cus_insert(2007,'Pratik','Rome',100,1004)#
+
+
+create table Orders
+(
+o_num bigint primary key not null,
+o_amount float not null,
+o_date date not null,
+c_num bigint not null,
+s_num bigint not null
+);
+
+create procedure Order_insert( in num bigint, in amount float, in hate date, in c_num bigint, in s_num bigint)
+begin
+insert into Orders values (num,amount,hate,c_num,s_num);
+end; 
+
+call Order_insert(3001,18.69,'1999-03-11',2007,1007)#
+call Order_insert(3002,767.19,'1999-03-11',2001,1001)#
+call Order_insert(3003,1900.10,'1999-03-11',2007,1004)#
+call Order_insert(3004,5160.45,'1999-03-11',2003,1002)#
+call Order_insert(3005,1098.25,'1999-04-11',2008,1007)#
+call Order_insert(3006,1713.12,'1999-04-11',2002,1003)#
+call Order_insert(3007,75.75,'1999-05-11',2004,1002)#
+call Order_insert(3008,4723.00,'1999-05-11',2006,1001)#
+call Order_insert(3009,1309.95,'1999-05-11',2004,1002)#
+call Order_insert(3010,9898.87,'1999-06-11',2006,1001)#
+
+WRITE A PROCEDURE P_LARGE_NUM THAT PRINTS THE LARGEST NUMBER OF GIVEN THREE NUMBER (N1=10,N2=20,N3=30) (USE SIMPLE IF THEN ELSE)
+ create procedure p_large_num()
+begin
+	declare n1,n2,n3 int;
+	set n1=10, n2=20,n3=30;
+	if n1>n2 
+	then
+	if n1>n3
+	then
+	     select "n1 is largest";
+	else 
+		select "n3 is largest";
+	End if;
+	else
+	if n2>n3
+	 then
+		select "n2 is largest";
+	else
+		select "n3 is largest";
+	End if;
+	End if;
+end#
+
+call p_large_num;#
++---------------+
+| n3 is largest |
++---------------+
+| n3 is largest |
++---------------+
+
+
+WRITE A PROCEDURE THAT WILL TAKE NUMBER AS PARAMETER AND CHECK WHETHER THE NUMBER IS ODD OR EVEN.
+
+create procedure pro_odd_even(in n int)
+BEGIN
+	IF n%2<>0 THEN
+	select 'Number is even';
+	ELSE 
+	select 'Number is ODD';
+	END IF;
+END #
+   
+ call pro_odd_even(21);
+    -> #
++----------------+
+| Number is even |
++----------------+
+| Number is even |
++----------------+
+
+
+WRITE A PROCEDURE P_CNUM THAT PRINTS THE NAME AND CUSTOMER NUMBER OF CUSTOMER HAVING CNUM = 2001
+
+create procedure p_cnum() select c_name,c_num from Customer where c_num=2001;
+
+call p_cnum;#
++--------+-------+
+| c_name | c_num |
++--------+-------+
+| Hardik |  2001 |
++--------+-------+
+
+WRITE A PROCEDURE P_INCREMENT THAT INCREASE THE RATING OF CUSTOMER NO 2001 BY 150. DISPLAY THE NAME AND INCREASED RATING OF THAT CUSTOMER.
+create procedure p_increment()
+update Customer set c_rating=c_rating+150;
+select c_name,c_rating from Customer where c_num=2001;
+#
++--------+----------+
+| c_name | c_rating |
++--------+----------+
+| Hardik |      100 |
++--------+----------+
+
+WRITE A PROCEDURE P_ORDER THAT PRINTS THE CUSTOMER NUMBER AND ORDER AMOUNT OF THE CUSTOMER HAVING LARGEST ORDER AMOUNT
+
+ create procedure P_ORDER()
+   Select o_num , MAX(o_amount)from Orders
+
+call P_ORDER 
+    -> //
++-------+---------------+
+| o_num | MAX(o_amount) |
++-------+---------------+
+|  3001 |       9898.87 |
++-------+---------------+
+1 row in set (0.01 sec)
+
+• WRITE A PROCEDURE P_CITY THAT WILL DISPLAY THE NAME AND TOTAL RATING
+OF THE CITY THAT HAS HIGHEST TOTAL RATING.
+
+ create procedure p_city()
+    -> Select city_name , MAX(rating)from customer
+call p_city;
++--------+---------------+
+| c_city | Max(c_rating) |
++--------+---------------+
+| London |           300 |
++--------+---------------+
+
+• WRITE A PROCEDURE P_GRADE THAT WILL DISPLAY THE GRADE OF THE CITY WITH
+HIGHEST TOTAL RATING ACCORDING TO FOLLOWING RULES.
+➢ IF TOTAL RATING OF ALL CUSTOMER OF THAT CITY IS LESS THAN 1000
+THEN CITY_GRADE WILL BE ‘POOR’.
+➢ IF TOTAL RATING OF ALL CUSTOMER OF THAT CITY IS MORE THAN OR
+EQUAL TO 1000 AND LESS THAN 2000 THEN CITY_GRADE WILL BE ‘GOOD’.
+➢ IF TOTAL RATING OF ALL CUSTOMER OF THAT CITY IS MORE THAN OR
+EQUAL TO 2000 AND LESS THAN 3000 THEN CITY_GRADE WILL BE
+‘EXCELLENT’.
+➢ IF TOTAL RATING OF ALL CUSTOMER OF THAT CITY IS MORE THAN OR
+EQUAL TO 3000 THEN CITY_GRADE WILL BE ‘OUTSTANDING’.
+USE ELSEIF STRUCTURE
+➢ REWRITE THE PROCEDURE CREATED USING NESTED IF.
+
+create  procedure p_grade(in city char(20))
+begin
+declare Total_rat int;
+SELECT SUM(c_rating) into Total_rat from customer where c_city=city;
+	if Total_rat<1000 then
+		select "Poor";
+
+elseif Total_rat<=2000 then
+	select "good";
+
+elseif Total_rat<=3000 then 
+	select "excellent";
+else
+	select "outstanding";
+end if;
+end
+
+call  p_grade('surat');#
++------+
+| Poor |
++------+
+| Poor |
+
+
+• WRITE A PROCEDURE P_GRADE THAT WILL PRINT CUSTOMER
+NAME AND GRADE OF THE CUSTOMER WHOSE CUSTOMER
+NUMBER IS 2002.
+ GRADE WILL BE DECIDED ACCORDING TO FOLLOWING RULES.
+➢ IF RATING IS 100 THEN GRADE WILL BE ‘POOR’.
+➢ IF RATING IS 200 THEN GRADE WILL BE ‘GOOD’.
+➢ IF RATING IS 300 THEN GRADE WILL BE ‘EXCELLENT’
+
+create  procedure P_GRADE()
+begin
+	declare rat int;
+select  c_rating into rat from  Customer where  c_num=2001;
+	if rat=100 then
+		select 'poor';
+	elseif rat=200 then
+		select 'good';
+	elseif rat=300 then
+		select 'excellent';
+	else
+		select 'invalid rating';
+	end if;
+	end#
+	
+call P_GRADE;#
++------+
+| poor |
++------+
+| poor |
++------+
+ 
+====================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

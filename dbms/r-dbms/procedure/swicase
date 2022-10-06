@@ -1,0 +1,43 @@
+create table custemer
+	(
+		c_id int primary key,
+		c_name char(20),
+		unit_c float,
+		total_bill_amt float
+		);
+
+insert into custemer values
+(101,'ankush',65.01,0);
+insert into custemer values
+(102,'denish',150,0);
+insert into custer values
+(103,'priya',250,0);
+	
+
+ create procedure bi11(in id int,a)
+begin
+      
+
+             case
+           when a > 0  or a <= 100 then
+           update custemer set total_bill_amt = 200 where c_id = id;
+
+           	when a > 100  and a <= 200 then
+           update custemer set total_bill_amt = 200 +(a*3) where c_id = id;
+
+           		when a > 200 and a <= 300 then
+           update custemer set total_bill_amt = 200 +(a*4) where c_id = id;
+
+           		when a > 300  and a <= 400 then
+           update custemer set total_bill_amt = 200 + 200 +(a*3) where c_id = id;
+
+           	end case;
+
+     select * from custemer where c_id = id;
+           	           	end!
+           	
+           	
+           	
+           	
+           	
+           	

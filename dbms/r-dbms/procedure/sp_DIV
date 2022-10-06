@@ -1,0 +1,29 @@
+delimiter @@
+
+
+create procedure Sp_DIV()
+BEGIN
+	DECLARE a , b , ans int;
+	SET a = 300 , b = 40;
+	SET ans = a DIV b;
+	select ans as DIV_Of_Num ;
+END @@
+
+drop procedure Sp_DIV1@@
+
+create procedure Sp_DIV1()
+BEGIN
+	DECLARE a , b , ans int;
+	DECLARE ans1 float;
+	SET a = 100 , b = 3;
+	SET ans = a DIV b;
+	SET ans1 = a / b;
+	select ans as Int_DIV ;
+	select ans1 as DIV_Of_Num ;
+END @@
+
+
+
+
+
+call Sp_DIV@@

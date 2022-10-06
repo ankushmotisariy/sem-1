@@ -1,0 +1,153 @@
+mysql> select * from sale_product;
++------+---------------+-----------+--------------+----------+------------+
+| s_id | salesman_name | cust_name | product_name | quantity | sale_price |
++------+---------------+-----------+--------------+----------+------------+
+|  101 | Avadh         | Om        | cake         |        2 |       1200 |
+|  102 | Krinal        | Khushi    | shoes        |        5 |       6000 |
+|  103 | Abhay         | Harsh     | watch        |        2 |       1200 |
+|  104 | Khushi        | Krinal    | phone        |        1 |      52000 |
+|  105 | Deep          | Jeel      | laptop       |        1 |      60000 |
+|  106 | Manish        | Bharat    | pen          |        2 |        500 |
+|  107 | Prience       | Dishant   | cap          |        8 |        800 |
+|  108 | Hevin         | Mansi     | airbuds      |        1 |       5000 |
+|  109 | Abhay         | Prachi    | bag          |        5 |       7500 |
+|  110 | Kirtan        | jeel      | book         |       48 |       1050 |
++------+---------------+-----------+--------------+----------+------------+
+10 rows in set (0.00 sec)
+
+
+1)
+mysql> select count(s_id) from sale_product where sale_price>20000;
++-------------+
+| count(s_id) |
++-------------+
+|           2 |
++-------------+
+1 row in set (0.00 sec)
+
+2)
+mysql> select sum(sale_price) from sale_product;
++-----------------+
+| sum(sale_price) |
++-----------------+
+|          135250 |
++-----------------+
+
+3)
+mysql> select min(sale_price) from sale_product;
++-----------------+
+| min(sale_price) |
++-----------------+
+|             500 |
++-----------------+
+1 row in set (0.00 sec)
+
+4)
+mysql> select max(sale_price) from sale_product;
++-----------------+
+| max(sale_price) |
++-----------------+
+|           60000 |
++-----------------+
+1 row in set (0.00 sec)
+
+5)
+mysql> select min(sale_price) from sale_product where sale_price > (select min(sale_price) from sale_product);
++-----------------+
+| min(sale_price) |
++-----------------+
+|             800 |
++-----------------+
+1 row in set (0.05 sec)
+
+6)
+mysql> select max(sale_price) from sale_product where sale_price < (select max(sale_price) from sale_product);
++-----------------+
+| max(sale_price) |
++-----------------+
+|           52000 |
++-----------------+
+1 row in set (0.00 sec)
+
+7)
+
+mysql> select avg(sale_price) from sale_product;
++-----------------+
+| avg(sale_price) |
++-----------------+
+|      13525.0000 |
++-----------------+
+1 row in set (0.00 sec)
+
+8)
+mysql> select avg(sale_price) from sale_product where s_id=105;
++-----------------+
+| avg(sale_price) |
++-----------------+
+|      60000.0000 |
++-----------------+
+1 row in set (0.00 sec)
+
+9)
+mysql> select min(sale_price) from sale_product where salesman_name='Abhay';
++-----------------+
+| min(sale_price) |
++-----------------+
+|            1200 |
++-----------------+
+1 row in set (0.00 sec)
+
+10)
+mysql> select avg(sale_price) from sale_product where salesman_name='Abhay';
++-----------------+
+| avg(sale_price) |
++-----------------+
+|       4350.0000 |
++-----------------+
+1 row in set (0.00 sec)
+
+11)
+mysql> select max(sale_price) from sale_product where salesman_name='Abhay';
++-----------------+
+| max(sale_price) |
++-----------------+
+|            7500 |
++-----------------+
+1 row in set (0.00 sec)
+
+12)
+
+mysql> select count(product_name),salesman_name from sale_product group by product_name;
++---------------------+---------------+
+| count(product_name) | salesman_name |
++---------------------+---------------+
+|                   1 | Hevin         |
+|                   1 | Abhay         |
+|                   1 | Kirtan        |
+|                   1 | Avadh         |
+|                   1 | Prience       |
+|                   1 | Deep          |
+|                   1 | Manish        |
+|                   1 | Khushi        |
+|                   1 | Krinal        |
+|                   1 | Abhay         |
++---------------------+---------------+
+10 rows in set (0.18 sec)
+
+13)
+mysql> select count(product_name),cust_name from sale_product group by product_name;
++---------------------+-----------+
+| count(product_name) | cust_name |
++---------------------+-----------+
+|                   1 | Mansi     |
+|                   1 | Prachi    |
+|                   1 | Dharm     |
+|                   1 | Om        |
+|                   1 | Dishant   |
+|                   1 | Jeel      |
+|                   1 | Bharat    |
+|                   1 | Krinal    |
+|                   1 | Khushi    |
+|                   1 | Harsh     |
++---------------------+-----------+
+10 rows in set (0.00 sec)

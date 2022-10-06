@@ -1,0 +1,76 @@
+create table stu
+(
+s_id int primary key,
+s_name char(20),
+s_city char(10),
+cont bigint,
+gender char(20),
+mark int
+);
+
+
+create procedure si(IN s_id int,IN s_name char(20),IN s_city char(10),IN cont bigint,IN gender char(20),IN mark int)
+begin
+	insert into stu value(s_id,s_name,s_city,cont,gender,mark);
+end;@
+
+call si(1,'ankush','surat',8849048885,'male',99)@
+call si(2,'priya','mumbai',8849048884,'female',90)@
+call si(3,'priyank','amarli',8320550565,'male',56)@
+call si(4,'happy','rajokat',8320056089,'female',55)@
+call si(5,'knil','rajkot',7567920122,'male',45)@
+call si(6,'denil','mumbai',8320550560,'male',44)@
+call si(7,'kenil','surat',8320550560,'male',49)@
+call si(8,'jenil','mumbai',8320550560,'male',99)@
+call si(9,'druve','mumbai',8320550560,'male',32)@
+call si(10,'deep','indore',8320550560,'male',45)@
+call si(11,'deepj','surat',8320550560,'male',99)@
+
+===============================================
+
+create procedure s10()
+begin
+	select s_name,cont from stu where s_id=4;
+end;@
+
+===================================
+create procedure s9()
+begin
+	select * from stu where s_city='surat';                     
+end;@
+===========================================
+create procedure s13()
+begin
+	select count(s_id) from stu where mark>50;
+end;@
+=====================
+create procedure s14()
+begin 
+	select max(mark) from stu;
+	select min(mark) from stu;
+end;@
+==========================
+create procedure s15(IN id int)
+begin 
+	select s_name,cont from stu where s_id=id;
+end;@
+=================================
+create procedure s16(IN f varchar(50))
+begin
+	select * from stu where s_city=f;
+end;@
+=====================================
+
+CREATE PROCEDURE s17()
+BEGIN
+	SELECT s_name from stu where mark BETWEEN 20 AND 25;
+END;
+@
+
+mysql> update stu set mark=23 where s_id=11;
+    -> @
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+==============================================================
+
+

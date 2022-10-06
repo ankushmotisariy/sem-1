@@ -1,0 +1,318 @@
+create table employee 
+(
+	eid int primary key,
+	ename char(50) not null,
+	contect_num bigint not null,
+	city char(20) not null,
+	gender char(20) not null,
+	salary int not null,
+	date_of_join date not null
+);
+
+
++--------------+------------+------+-----+---------+-------+
+| Field        | Type       | Null | Key | Default | Extra |
++--------------+------------+------+-----+---------+-------+
+| eid          | int(11)    | NO   | PRI | NULL    |       |
+| ename        | char(50)   | NO   |     | NULL    |       |
+| contect_num  | bigint(20) | NO   |     | NULL    |       |
+| city         | char(20)   | NO   |     | NULL    |       |
+| gender       | char(20)   | NO   |     | NULL    |       |
+| salary       | int(11)    | NO   |     | NULL    |       |
+| date_of_join | date       | NO   |     | NULL    |       |
++--------------+------------+------+-----+---------+-------+
+
+
+
+insert into employee
+value(111,'parth',8401656116,'surat','male',40000,'2019-07-24');
+insert into employee
+value(112,'sahil',9326548910,'bardoli','male',23000,'2022-04-01');
+insert into employee
+value(113,'dev',800001526,'navsari','male',30000,'2020-01-01');
+insert into employee
+value(114,'priya',9879045472,'surat','female',35000,'2019-10-22');
+insert into employee
+value(115,'drashti',9326154289,'vapi','female',20000,'2021-12-01');
+
++-----+---------+-------------+---------+--------+--------+--------------+
+| eid | ename   | contect_num | city    | gender | salary | date_of_join |
++-----+---------+-------------+---------+--------+--------+--------------+
+| 111 | parth   |  8401656116 | surat   | male   |  40000 | 2019-07-24   |
+| 112 | sahil   |  9326548910 | bardoli | male   |  23000 | 2022-04-01   |
+| 113 | dev     |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya   |  9879045472 | surat   | female |  35000 | 2019-10-22   |
+| 115 | drashti |  9326154289 | vapi    | female |  20000 | 2021-12-01   |
++-----+---------+-------------+---------+--------+--------+--------------+
+
+
+create procedure sp_e1()
+Begin
+	select * from employee;
+End;
+
+mysql> delimiter //
+mysql> create procedure sp_e1()
+    -> Begin
+    -> select * from employee;
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> call sp_e1;
+    -> //
++-----+---------+-------------+---------+--------+--------+--------------+
+| eid | ename   | contect_num | city    | gender | salary | date_of_join |
++-----+---------+-------------+---------+--------+--------+--------------+
+| 111 | parth   |  8401656116 | surat   | male   |  40000 | 2019-07-24   |
+| 112 | sahil   |  9326548910 | bardoli | male   |  23000 | 2022-04-01   |
+| 113 | dev     |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya   |  9879045472 | surat   | female |  35000 | 2019-10-22   |
+| 115 | drashti |  9326154289 | vapi    | female |  20000 | 2021-12-01   |
++-----+---------+-------------+---------+--------+--------+--------------+
+5 rows in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+
+
+create procedure sp_e2()
+Begin
+	select * from employee where salary > 25000;
+End;
+
+
+mysql> create procedure sp_e2()
+    -> Begin
+    -> select * from employee where salary > 25000;
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.02 sec)
+
++------------+
+| count(eid) |
++------------+
+|          4 |
++------------+
+
+
+mysql> call sp_e2;
+    -> //
++-----+-------+-------------+---------+--------+--------+--------------+
+| eid | ename | contect_num | city    | gender | salary | date_of_join |
++-----+-------+-------------+---------+--------+--------+--------------+
+| 111 | parth |  8401656116 | surat   | male   |  40000 | 2019-07-24   |
+| 113 | dev   |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya |  9879045472 | surat   | female |  35000 | 2019-10-22   |
++-----+-------+-------------+---------+--------+--------+--------------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+create or replace procedure sp_e3()
+Begin
+	select count(eid) from employee;
+End;
+
+
+create procedure sp_e4()
+Begin
+	select * from employee where date_of_join between '2018-06-01' and '2020-07-01';
+End;
+
+
+
+mysql> create procedure sp_e4()
+    -> Begin
+    -> select * from employee where date_of_join between '2018-06-01' and '2020-07-01';
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call sp_e4;
+    -> //
++-----+-------+-------------+---------+--------+--------+--------------+
+| eid | ename | contect_num | city    | gender | salary | date_of_join |
++-----+-------+-------------+---------+--------+--------+--------------+
+| 111 | parth |  8401656116 | surat   | male   |  40000 | 2019-07-24   |
+| 113 | dev   |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya |  9879045472 | surat   | female |  35000 | 2019-10-22   |
++-----+-------+-------------+---------+--------+--------+--------------+
+3 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+create procedure sp_e5(in i int)
+Begin
+	select * from employee where eid=i;
+End;
+
+
+mysql> create procedure sp_e5(in i int)
+    -> Begin
+    -> select * from employee where eid=i;mysql> create procedure sp_e9(in i int)
+    -> Begin
+    -> update employee set salary = salary+2000 where eid=i;
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call sp_e9(111)
+    -> //
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
+    -> //
++-----+---------+-------------+---------+--------+--------+--------------+
+| eid | ename   | contect_num | city    | gender | salary | date_of_join |
++-----+---------+-------------+---------+--------+--------+--------------+
+| 111 | parth   |  9909435906 | surat   | male   |  42000 | 2019-07-24   |
+| 113 | dev     |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya   |  9879045472 | surat   | female |  35000 | 2019-10-22   |
+| 115 | drashti |  9326154289 | vapi    | female |  20000 | 2021-12-01   |
++-----+---------+-------------+---------+--------+--------+--------------+
+
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call sp_e5(113);
+    -> //
++-----+-------+-------------+---------+--------+--------+--------------+
+| eid | ename | contect_num | city    | gender | salary | date_of_join |
++-----+-------+-------------+---------+--------+--------+--------------+
+| 113 | dev   |   800001526 | navsari | male   |  30000 | 2020-01-01   |
++-----+-------+-------------+---------+--------+--------+--------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+create procedure sp_e6()
+Begin 
+	select ename,city,eid,salary from employee;
+End;
+
+
+mysql> create procedure sp_e6()
+    -> Begin 
+    -> select ename,city,eid,salary from employee;
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call sp_e6;
+    -> //
++---------+---------+-----+--------+
+| ename   | city    | eid | salary |
++---------+---------+-----+--------+
+| parth   | surat   | 111 |  40000 |
+| sahil   | bardoli | 112 |  23000 |
+| dev     | navsari | 113 |  30000 |
+| priya   | surat   | 114 |  35000 |
+| drashti | vapi    | 115 |  20000 |
++---------+---------+-----+--------+
+5 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+
+create procedure sp_e7(in i int)
+Begin
+	delete from employee where eid=i;
+End;
+
+
+mysql> create procedure sp_e7(in i int)
+    -> Begin
+    -> delete from employee where eid=i;
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
++------------+
+| count(eid) |
++------------+
+|          4 |
++------------+
+
+mysql> call sp_e7(112)
+    -> //
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from employee;
+    -> //\
++-----+---------+-------------+---------+--------+--------+--------------+
+| eid | ename   | contect_num | city    | gender | salary | date_of_join |
++-----+---------+-------------+---------+--------+--------+--------------+
+| 111 | parth   |  8401656116 | surat   | male   |  40000 | 2019-07-24   |
+| 113 | dev     |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya   |  9879045472 | surat   | female |  35000 | 2019-10-22   |
+| 115 | drashti |  9326154289 | vapi    | female |  20000 | 2021-12-01   |
++-----+---------+-------------+---------+--------+--------+--------------+
+4 rows in set (0.00 sec)
+
+
+create procedure sp_e8(in i int , in n varchar(20))
+Begin
+	update employee set contect_num=9909435906 where eid=i and ename=n;  
+End;
+
+
+
+
+
+mysql> create procedure sp_e8(in i int , in n varchar(20))
+    -> Begin
+    -> update employee set contect_num=9909435906 where eid=i and ename=n;  
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call sp_e8(111,'parth')
+    -> //
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from employee;
+    -> //
++-----+---------+-------------+---------+--------+--------+--------------+
+| eid | ename   | contect_num | city    | gender | salary | date_of_join |
++-----+---------+-------------+---------+--------+--------+--------------+
+| 111 | parth   |  9909435906 | surat   | male   |  40000 | 2019-07-24   |
+| 113 | dev     |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya   |  9879045472 | surat   | female |  35000 | 2019-10-22   |
+| 115 | drashti |  9326154289 | vapi    | female |  20000 | 2021-12-01   |
++-----+---------+-------------+---------+--------+--------+--------------+
+4 rows in set (0.00 sec)
+
+create procedure sp_e9(in i int)
+Begin
+	update employee set salary = salary+2000 where eid=i;
+End;
+
+mysql> create procedure sp_e9(in i int)
+    -> Begin
+    -> update employee set salary = salary+2000 where eid=i;
+    -> End;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call sp_e9(111)
+    -> //
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
+    -> //
++-----+---------+-------------+---------+--------+--------+--------------+
+| eid | ename   | contect_num | city    | gender | salary | date_of_join |
++-----+---------+-------------+---------+--------+--------+--------------+
+| 111 | parth   |  9909435906 | surat   | male   |  42000 | 2019-07-24   |
+| 113 | dev     |   800001526 | navsari | male   |  30000 | 2020-01-01   |
+| 114 | priya   |  9879045472 | surat   | female |  35000 | 2019-10-22   |
+| 115 | drashti |  9326154289 | vapi    | female |  20000 | 2021-12-01   |
++-----+---------+-------------+---------+--------+--------+--------------+
+ 

@@ -1,0 +1,258 @@
+create table emp
+    (
+     e_id int primary key,
+     e_name char(20),
+    e_city char(20),
+     e_des char (20),
+      e_sal int
+     );
+
+create procedure si11(IN e_id int,IN e_name char(20),IN e_city char(20),IN e_des char(20),IN e_sal int)
+begin
+	insert into emp value(e_id,e_name,e_city,e_des,e_sal);
+end;#
+
+call si11(1,'ankush','surat','sod',50000)#
+call si11(2,'priya','mumbai','manger',20000)#
+call si11(3,'priyank','amarli','salesman',20000)#
+call si11(4,'happy','rajokat','work',12000)#
+call si11(5,'knil','rajkot','prmanger',25000)#
+call si11(6,'jymian','surat','emp',0)#
+
+
+===========================\
+
+ switch case
+=========================
+
+create procedure case1()
+begin
+   declare c varchar(20);
+   declare inc int;
+select e_des into c from emp where e_id=5;
+
+case c
+        when 'manger'then
+        set inc=1000;
+        when 'prmanger'then
+        set inc=30000;
+        when 'emp' then
+        set inc=5100;
+else
+         set inc=0;
+end case;
+         update emp set e_sal = e_sal+inc where e_id=5;
+end;#
+=====================
+mysql> desc emp
+    -> #
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| e_id   | int(11)  | NO   | PRI | NULL    |       |
+| e_name | char(20) | YES  |     | NULL    |       |
+| e_city | char(20) | YES  |     | NULL    |       |
+| e_des  | char(20) | YES  |     | NULL    |       |
+| e_sal  | int(11)  | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+===================
+mysql>  select * from emp;#
++------+---------+---------+----------+-------+
+| e_id | e_name  | e_city  | e_des    | e_sal |
++------+---------+---------+----------+-------+
+|    1 | ankush  | surat   | sod      | 50000 |
+|    2 | priya   | mumbai  | manger   | 20000 |
+|    3 | priyank | amarli  | salesman | 20000 |
+|    4 | happy   | rajokat | work     | 12000 |
+|    5 | knil    | rajkot  | prmanger | 25000 |
++------+---------+---------+----------+-------+
+5 rows in set (0.00 sec)
+
+======================================
+  create procedure case1()
+    -> begin
+    ->    declare c varchar(20);
+    ->    declare inc int;
+    -> select e_des into c from emp where e_id=6;
+    -> 
+    -> case c
+    ->         when 'manger'then
+    ->         set inc=1000;
+    ->         when 'prmanger'then
+    ->         set inc=30000;
+    ->         when 'emp' then
+    ->         set inc=50000;
+    -> else
+    ->          set inc=0;
+    -> end case;
+    ->          update emp set e_sal = e_sal+inc where e_id=6;
+    -> end;#
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call case1;
+    -> #
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select *
+    -> select * from emp;
+    -> #
+=====================================
+mysql>  select * from emp;#
++------+---------+---------+----------+-------+
+| e_id | e_name  | e_city  | e_des    | e_sal |
++------+---------+---------+----------+-------+
+|    1 | ankush  | surat   | sod      | 50000 |
+|    2 | priya   | mumbai  | manger   | 20000 |
+|    3 | priyank | amarli  | salesman | 20000 |
+|    4 | happy   | rajokat | work     | 12000 |
+|    5 | knil    | rajkot  | prmanger | 55000 |
++------+---------+---------+----------+-------+
+5 rows in set (0.00 sec)
+==================================
+value salary 0
+=========================
+
++------+---------+---------+----------+-------+
+| e_id | e_name  | e_city  | e_des    | e_sal |
++------+---------+---------+----------+-------+
+|    1 | ankush  | surat   | sod      | 50000 |
+|    2 | priya   | mumbai  | manger   | 20000 |
+|    3 | priyank | amarli  | salesman | 20000 |
+|    4 | happy   | rajokat | work     | 12000 |
+|    5 | knil    | rajkot  | prmanger | 55000 |
+|    6 | jymian  | surat   | emp      |     0 |
++------+---------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+===========================
+create procedure case2()
+begin
+   declare c varchar(20);
+   declare inc int;
+select e_des into c from emp where e_id=6;
+
+case c
+        when 'manger'then
+        set inc=1000;
+        when 'prmanger'then
+        set inc=30000;
+        when 'emp' then
+        set inc=50000;
+else
+         set inc=0;
+end case;
+         update emp set e_sal = e_sal+inc where e_id=6;
+end;#
+==============
+mysql> call case2;#
+Query OK, 1 row affected (0.08 sec)
+
+mysql>  select * from emp;#
++------+---------+---------+----------+-------+
+| e_id | e_name  | e_city  | e_des    | e_sal |
++------+---------+---------+----------+-------+
+|    1 | ankush  | surat   | sod      | 50000 |
+|    2 | priya   | mumbai  | manger   | 20000 |
+|    3 | priyank | amarli  | salesman | 20000 |
+|    4 | happy   | rajokat | work     | 12000 |
+|    5 | knil    | rajkot  | prmanger | 55000 |
+|    6 | jymian  | surat   | emp      | 50000 |
++------+---------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+
+===============================
+2--- switch cases;
+
+===================
+create procedure case3()
+begin
+   declare c int;
+   declare inc int;
+select e_sal into c from emp where e_id=1;
+
+case 
+       when c>5000 then
+       set inc=c+2000;
+       when c>10000 then
+       set inc=c+100; 
+else
+         set inc = c+100;
+end case;
+         update emp set e_sal = inc where e_id=1;
+end;#
+
+===========================
+mysql> call case3;#
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from emp;#
++------+---------+---------+----------+-------+
+| e_id | e_name  | e_city  | e_des    | e_sal |
++------+---------+---------+----------+-------+
+|    1 | ankush  | surat   | sod      | 52000 |
+|    2 | priya   | mumbai  | manger   | 20000 |
+|    3 | priyank | amarli  | salesman | 20000 |
+|    4 | happy   | rajokat | work     | 12000 |
+|    5 | knil    | rajkot  | prmanger | 55000 |
+|    6 | jymian  | surat   | emp      | 50000 |
++------+---------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> 
+=========================
+create procedure em3(IN id int)
+BEGIN
+	select e_sal from emp where e_id=id;
+khotu che =====	IF(e_sal>50000) then
+	update emp set e_sal = e_sal+500 where e_id=id;
+END IF;
+end;#
+
+===============================================
+create procedure em5(IN id int)
+BEGIN
+	declare s int;
+	select e_sal into s from emp where e_id=id;
+	IF(s>50000) then
+	update emp set e_sal=(e_sal+500) where e_id=id;
+END IF;
+end;#
+========================================
+ 
+mysql> call em5(5);#
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from emp;
+    -> #
++------+---------+---------+----------+-------+
+| e_id | e_name  | e_city  | e_des    | e_sal |
++------+---------+---------+----------+-------+
+|    1 | ankush  | surat   | sod      | 52000 |
+|    2 | priya   | mumbai  | manger   | 20000 |
+|    3 | priyank | amarli  | salesman | 20000 |
+|    4 | happy   | rajokat | work     | 12000 |
+|    5 | knil    | rajkot  | prmanger | 55500 |
+|    6 | jymian  | surat   | emp      | 50000 |
++------+---------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+50000 karta vatdu hoy to
+===================================
+create procedure em6(IN id int)
+BEGIN
+	declare s int;
+	select e_sal into s from emp where e_id=id;
+	IF(s<50000) then
+	update emp set e_sal=(e_sal+10000) where e_id=id;
+END IF;
+end;#
+
+
+
+
+

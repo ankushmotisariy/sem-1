@@ -1,0 +1,77 @@
+ create table stud
+  (
+    en_no int primary key,
+     name char(20),
+     class char(20),
+     division char(5)
+     );
+
+insert into stud values(10,'raj','2','a');
+insert into stud values(11,'kuldip','3','b');
+insert into stud values(12,'doni','4','c');
+
+===================================
+
+create function po(id int)
+returns varchar(20)
+begin
+      declare sname varchar(20);
+      select name into sname from stud where en_no=id;
+     return sname;
+end;
+
+mysql> select po(12)@
++--------+
+| po(12) |
++--------+
+| doni   |
++--------+
+1 row in set (0.00 sec)
+
+===================================================
+
+2)
+
+create table re_master
+(
+rid int primary key,
+cid int,
+mo_nuber bigint,
+recharge_amout decimal(15,2)
+);
+
+insert into re_master values(10,25,8849048885,500);
+insert into re_master values(20,65,8849048885,655);
+insert into re_master values(30,45,8849048885,100);
+insert into re_master values(40,65,8849048885,560);
+insert into re_master values(50,89,8849048885,658);
+
+===================================
+create function co(num bigint)
+returns int
+begin
+declare total int;
+select count(recharge_amout) into total from re_master where 
+mo_nuber=num;
+return total;
+
+end;
+==============================
+
+mysql> select co(8849048885)@
++----------------+
+| co(8849048885) |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.00 sec)
+
+=========================================
+
+
+
+
+
+
+
+ 

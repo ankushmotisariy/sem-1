@@ -1,0 +1,85 @@
+create table employee(
+	e_id int primary key,
+	e_name char(50),
+	e_contact_no bigint,
+	e_city char(50),
+	e_gender char(20),
+	e_salary int,
+	e_date_of_join date
+); 
+
+
+insert into employee values
+(101 , 'meet',123456789,'surat','male',25000,'2021-01-01'),
+(102 , 'priyank',123456789,'mumbai','male',100000,'2018-06-13'),
+(103 , 'visvas',123456789,'surat','male',50000,'2022-01-07'),
+(104 , 'payal',123456789,'bharuch','female',15000,'2022-01-13'),
+(105 , 'prince',123456789,'surat','male',25000,'2019-01-01');
+
+delimiter @
+
+1 )
+
+create procedure sp_e1() 
+begin
+	select * from employee; 
+end@
+
+2 )
+
+create procedure sp_e2()
+begin
+	select e_name from employee where e_salary > 25000;
+end@
+
+3 )
+
+create procedure sp_e3() 
+begin
+	select count(e_id) as total_employee from employee;
+end@
+
+4 )
+
+create procedure sp_e4()
+begin
+	select e_name , e_city from employee where e_date_of_join between '2018-06-01' and '2020-07-01';
+end@
+
+5 )
+
+create procedure sp_e5(in id int)
+begin
+	select * from employee where e_id = id;
+end@
+
+6 )
+
+create procedure sp_e6(in id int , in name varchar(50))
+begin
+	select e_id , e_name , e_city , e_salary from employee where e_id = id and e_name = name ; 
+end@
+
+7 )
+
+create procedure sp_e7(in id int) 
+delete from employee where e_id = id;@	
+
+
+8 )
+
+create procedure sp_e8(in id int , in new_no bigint )
+begin
+	update employee
+	set e_contact_no = new_no where e_id = id;
+end@
+
+9 )
+
+create procedure sp_e9(in id int)
+begin
+	update employee
+	set e_salary = e_salary + 2000 where e_id = id;
+end@
+
+

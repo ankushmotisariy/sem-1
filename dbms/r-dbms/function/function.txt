@@ -1,0 +1,50 @@
+create function ep(id int)
+returns varchar(20)
+begin
+       declare name varchar(20);
+       select s_name into name from stu where s_id=id;
+       return name;
+end;
+
+===============
+mysql> create function ep(id int)
+    -> returns varchar(20)
+    -> begin
+    ->        declare name varchar(20);
+    ->        select s_name into name from stu where s_id=id;
+    ->        return name;
+    -> end;#
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select ep(102)#
++---------+
+| ep(102) |
++---------+
+| om      |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select ep(101)#
++---------+
+| ep(101) |
++---------+
+| ankush  |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select ep(103)#
++---------+
+| ep(103) |
++---------+
+| priya   |
++---------+
+==================================
+
+create function ep2(id int)
+returns varchar(20)
+begin
+       declare name varchar(20);
+       select mark into name from stu where s_id=id;
+       return name;
+end;
+
